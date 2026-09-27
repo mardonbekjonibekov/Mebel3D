@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SortSelect from "@/components/SortSelect";
 import { prisma } from "@/lib/prisma";
 import { queryProducts, parseFilters } from "@/lib/queries";
 import ProductCard from "@/components/ProductCard";
@@ -46,11 +47,7 @@ export default async function CatalogView({ category, searchParams }) {
         <h1 className="text-2xl md:text-4xl font-semibold tracking-tight">{category ? category.name : "Barcha mebellar"}</h1>
         <div className="flex items-center gap-2.5">
           <span className="hidden sm:inline text-sm text-neutral-400">{products.length} ta mahsulot</span>
-          <select form="filters" name="sort" defaultValue={filters.sort} className="h-10 rounded-xl border border-neutral-200 bg-white px-3 text-sm font-medium outline-none focus:border-brand" aria-label="Saralash">
-            <option value="new">Yangilari</option>
-            <option value="price_asc">Arzonroq</option>
-            <option value="price_desc">Qimmatroq</option>
-          </select>
+          <SortSelect value={filters.sort} />
         </div>
       </div>
       {chips.length > 0 && (
