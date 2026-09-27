@@ -1,0 +1,591 @@
+[
+  {
+    "slug": "oshxona-stoli-milano",
+    "colorParts": [
+      0
+    ],
+    "category": "stollar",
+    "name": "To'qilgan oshxona stoli",
+    "description": "Ratan ko'rinishidagi to'qilgan asos va shisha usti bilan oshxona/hovli stoli. Qora-kulrang rang, kengligi 133 sm.",
+    "price": 2450000,
+    "oldPrice": 2900000,
+    "width": 142,
+    "depth": 100,
+    "height": 73,
+    "material": "Sun'iy ratan + shisha",
+    "color": "To'q kulrang",
+    "colors": [
+      {
+        "name": "Eman",
+        "hex": "#a67c52"
+      },
+      {
+        "name": "Yong'oq",
+        "hex": "#5c3d2e"
+      },
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      },
+      {
+        "name": "Qora",
+        "hex": "#1c1c1e"
+      }
+    ],
+    "featured": true,
+    "imageUrl": "/products/oshxona-stoli-milano.jpg",
+    "glbUrl": "/models/oshxona-stoli-milano.glb",
+    "usdzUrl": "/models/oshxona-stoli-milano.usdz",
+    "bg": null
+  },
+  {
+    "slug": "yumaloq-stol-luna",
+    "colorParts": [
+      1
+    ],
+    "category": "stollar",
+    "name": "Yumaloq shisha stol",
+    "description": "Shaffof shisha ustli, qora metall-ratan ramkali yumaloq stol. Diametri 100 sm, hovli va mehmonxona uchun.",
+    "price": 1750000,
+    "oldPrice": null,
+    "width": 102,
+    "depth": 102,
+    "height": 72,
+    "material": "Shisha + metall",
+    "color": "Qora / shaffof",
+    "colors": [
+      {
+        "name": "Eman",
+        "hex": "#a67c52"
+      },
+      {
+        "name": "Yong'oq",
+        "hex": "#5c3d2e"
+      },
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      },
+      {
+        "name": "Qora",
+        "hex": "#1c1c1e"
+      }
+    ],
+    "featured": false,
+    "imageUrl": "/products/yumaloq-stol-luna.jpg",
+    "glbUrl": "/models/yumaloq-stol-luna.glb",
+    "usdzUrl": "/models/yumaloq-stol-luna.usdz",
+    "bg": null
+  },
+  {
+    "slug": "yozuv-stoli-nordic",
+    "colorParts": [
+      0,
+      1
+    ],
+    "category": "stollar",
+    "name": "Yozuv stoli (Z-oyoqli)",
+    "description": "Yong'oq rangli usti va qora Z-shaklidagi metall oyoqlari bor yozuv stoli. Ichida tortma bor, uy va ofis uchun.",
+    "price": 1290000,
+    "oldPrice": 1490000,
+    "width": 120,
+    "depth": 60,
+    "height": 74,
+    "material": "LDSP + metall",
+    "color": "Yong'oq / qora",
+    "colors": [
+      {
+        "name": "Eman",
+        "hex": "#a67c52"
+      },
+      {
+        "name": "Yong'oq",
+        "hex": "#5c3d2e"
+      },
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      },
+      {
+        "name": "Qora",
+        "hex": "#1c1c1e"
+      }
+    ],
+    "featured": false,
+    "imageUrl": "/products/yozuv-stoli-nordic.jpg",
+    "glbUrl": "/models/yozuv-stoli-nordic.glb",
+    "usdzUrl": "/models/yozuv-stoli-nordic.usdz",
+    "bg": null
+  },
+  {
+    "slug": "stul-klassik",
+    "colorParts": [
+      0
+    ],
+    "category": "stullar",
+    "name": "Plastik stul",
+    "description": "Yengil, bir-birining ustiga qo'yiladigan plastik stul, suyanchig'ida teshikchalar bor. Oshxona va kafe uchun.",
+    "price": 490000,
+    "oldPrice": 590000,
+    "width": 46,
+    "depth": 53,
+    "height": 84,
+    "material": "Plastik",
+    "color": "Bej",
+    "colors": [
+      {
+        "name": "Eman",
+        "hex": "#a67c52"
+      },
+      {
+        "name": "Yong'oq",
+        "hex": "#5c3d2e"
+      },
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      },
+      {
+        "name": "Qora",
+        "hex": "#1c1c1e"
+      }
+    ],
+    "featured": false,
+    "imageUrl": "/products/stul-klassik.jpg",
+    "glbUrl": "/models/stul-klassik.glb",
+    "usdzUrl": "/models/stul-klassik.usdz",
+    "bg": null
+  },
+  {
+    "slug": "bar-stuli-loft",
+    "colorParts": [
+      1
+    ],
+    "category": "stullar",
+    "name": "Bar stuli (qora)",
+    "description": "Qora tikilgan mato o'rindiqli, xrom oyoqli, balandligi sozlanadigan bar stuli.",
+    "price": 390000,
+    "oldPrice": null,
+    "width": 45,
+    "depth": 58,
+    "height": 90,
+    "material": "Mato + xrom metall",
+    "color": "Qora / xrom",
+    "colors": [
+      {
+        "name": "Eman",
+        "hex": "#a67c52"
+      },
+      {
+        "name": "Yong'oq",
+        "hex": "#5c3d2e"
+      },
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      },
+      {
+        "name": "Qora",
+        "hex": "#1c1c1e"
+      }
+    ],
+    "featured": false,
+    "imageUrl": "/products/bar-stuli-loft.jpg",
+    "glbUrl": "/models/bar-stuli-loft.glb",
+    "usdzUrl": "/models/bar-stuli-loft.usdz",
+    "bg": null
+  },
+  {
+    "slug": "divan-comfort",
+    "colorParts": [
+      1,
+      2
+    ],
+    "category": "divanlar",
+    "name": "Qizil baxmal divan",
+    "description": "Uch kishilik qizil baxmal divan: vertikal tikilgan suyanchiq va ingichka qora oyoqlar.",
+    "price": 6900000,
+    "oldPrice": 7900000,
+    "width": 220,
+    "depth": 77,
+    "height": 85,
+    "material": "Baxmal + metall",
+    "color": "Qizil",
+    "colors": [
+      {
+        "name": "Kulrang",
+        "hex": "#8b9096"
+      },
+      {
+        "name": "Ko'k",
+        "hex": "#2f4a7a"
+      },
+      {
+        "name": "Yashil",
+        "hex": "#3f6b5c"
+      },
+      {
+        "name": "Bej",
+        "hex": "#d6c3a3"
+      },
+      {
+        "name": "Qora",
+        "hex": "#232326"
+      }
+    ],
+    "featured": true,
+    "imageUrl": "/products/divan-comfort.jpg",
+    "glbUrl": "/models/divan-comfort.glb",
+    "usdzUrl": "/models/divan-comfort.usdz",
+    "bg": null
+  },
+  {
+    "slug": "kreslo-relax",
+    "colorParts": [
+      1,
+      2
+    ],
+    "category": "divanlar",
+    "name": "Rekliner kreslo (massajli)",
+    "description": "Krem rangli charm rekliner kreslo: oyoq tayanchi, stakan tutqichlari va yon cho'ntagi bor.",
+    "price": 2350000,
+    "oldPrice": null,
+    "width": 97,
+    "depth": 105,
+    "height": 106,
+    "material": "Sun'iy charm",
+    "color": "Krem",
+    "colors": [
+      {
+        "name": "Kulrang",
+        "hex": "#8b9096"
+      },
+      {
+        "name": "Ko'k",
+        "hex": "#2f4a7a"
+      },
+      {
+        "name": "Yashil",
+        "hex": "#3f6b5c"
+      },
+      {
+        "name": "Bej",
+        "hex": "#d6c3a3"
+      },
+      {
+        "name": "Qora",
+        "hex": "#232326"
+      }
+    ],
+    "featured": false,
+    "imageUrl": "/products/kreslo-relax.jpg",
+    "glbUrl": "/models/kreslo-relax.glb",
+    "usdzUrl": "/models/kreslo-relax.usdz",
+    "bg": null
+  },
+  {
+    "slug": "kiyim-shkafi-grand",
+    "colorParts": [
+      1,
+      3
+    ],
+    "category": "shkaflar",
+    "name": "Devor shkafi (LED yoritgichli)",
+    "description": "Kulrang devor shkafi: yoritilgan ochiq javonlar, shisha eshiklar va pastda tortmalar.",
+    "price": 5200000,
+    "oldPrice": 5900000,
+    "width": 190,
+    "depth": 38,
+    "height": 155,
+    "material": "LDSP + shisha",
+    "color": "Kulrang",
+    "colors": [
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      },
+      {
+        "name": "Jigarrang",
+        "hex": "#7a4b2a"
+      },
+      {
+        "name": "Qora",
+        "hex": "#1f1f21"
+      },
+      {
+        "name": "Kulrang",
+        "hex": "#8b9096"
+      }
+    ],
+    "featured": true,
+    "imageUrl": "/products/kiyim-shkafi-grand.jpg",
+    "glbUrl": "/models/kiyim-shkafi-grand.glb",
+    "usdzUrl": "/models/kiyim-shkafi-grand.usdz",
+    "bg": null
+  },
+  {
+    "slug": "kitob-javoni-library",
+    "colorParts": [
+      1
+    ],
+    "category": "shkaflar",
+    "name": "Tor shkaf (ikki eshikli)",
+    "description": "Ingichka, baland ikki eshikli shkaf: qora-kulrang korpus, tabiiy yog'och rangli eshiklar.",
+    "price": 1480000,
+    "oldPrice": null,
+    "width": 40,
+    "depth": 43,
+    "height": 183,
+    "material": "LDSP",
+    "color": "Kulrang / eman",
+    "colors": [
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      },
+      {
+        "name": "Jigarrang",
+        "hex": "#7a4b2a"
+      },
+      {
+        "name": "Qora",
+        "hex": "#1f1f21"
+      },
+      {
+        "name": "Kulrang",
+        "hex": "#8b9096"
+      }
+    ],
+    "featured": false,
+    "imageUrl": "/products/kitob-javoni-library.jpg",
+    "glbUrl": "/models/kitob-javoni-library.glb",
+    "usdzUrl": "/models/kitob-javoni-library.usdz",
+    "bg": null
+  },
+  {
+    "slug": "tv-tumba-modern",
+    "colorParts": [
+      0,
+      1
+    ],
+    "category": "shkaflar",
+    "name": "TV tumba",
+    "description": "Kulrang yog'och naqshli TV tumba, uchta eshikli va qora metall oyoqlarda.",
+    "price": 1650000,
+    "oldPrice": 1890000,
+    "width": 142,
+    "depth": 43,
+    "height": 49,
+    "material": "LDSP + metall",
+    "color": "Kulrang",
+    "colors": [
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      },
+      {
+        "name": "Jigarrang",
+        "hex": "#7a4b2a"
+      },
+      {
+        "name": "Qora",
+        "hex": "#1f1f21"
+      },
+      {
+        "name": "Kulrang",
+        "hex": "#8b9096"
+      }
+    ],
+    "featured": false,
+    "imageUrl": "/products/tv-tumba-modern.jpg",
+    "glbUrl": "/models/tv-tumba-modern.glb",
+    "usdzUrl": "/models/tv-tumba-modern.usdz",
+    "bg": null
+  },
+  {
+    "slug": "krevat-royal",
+    "colorParts": [
+      0
+    ],
+    "category": "krevatlar",
+    "name": "Bir kishilik krevat (och rang)",
+    "description": "Och eskirgan eman rangidagi bir kishilik krevat, baland bosh qismi bilan. Matras 90x200 sm.",
+    "price": 6400000,
+    "oldPrice": 7400000,
+    "width": 98,
+    "depth": 205,
+    "height": 96,
+    "material": "LDSP",
+    "color": "Och eman",
+    "colors": [
+      {
+        "name": "Yong'oq",
+        "hex": "#5c3d2e"
+      },
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      },
+      {
+        "name": "Bej",
+        "hex": "#d6c3a3"
+      },
+      {
+        "name": "Kulrang",
+        "hex": "#8b9096"
+      }
+    ],
+    "featured": true,
+    "imageUrl": "/products/krevat-royal.jpg",
+    "glbUrl": "/models/krevat-royal.glb",
+    "usdzUrl": "/models/krevat-royal.usdz",
+    "bg": null
+  },
+  {
+    "slug": "bolalar-krevati-sweet",
+    "colorParts": [
+      0
+    ],
+    "category": "krevatlar",
+    "name": "Bir kishilik krevat (yong'oq)",
+    "description": "To'q yong'oq rangli mustahkam bir kishilik krevat, metall parchinlar bilan. Matras 90x200 sm.",
+    "price": 1950000,
+    "oldPrice": null,
+    "width": 100,
+    "depth": 205,
+    "height": 94,
+    "material": "LDSP",
+    "color": "Yong'oq",
+    "colors": [
+      {
+        "name": "Yong'oq",
+        "hex": "#5c3d2e"
+      },
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      },
+      {
+        "name": "Bej",
+        "hex": "#d6c3a3"
+      },
+      {
+        "name": "Kulrang",
+        "hex": "#8b9096"
+      }
+    ],
+    "featured": false,
+    "imageUrl": "/products/bolalar-krevati-sweet.jpg",
+    "glbUrl": "/models/bolalar-krevati-sweet.glb",
+    "usdzUrl": "/models/bolalar-krevati-sweet.usdz",
+    "bg": null
+  },
+  {
+    "slug": "ofis-kreslosi-ergo",
+    "colorParts": [
+      1,
+      2,
+      3
+    ],
+    "category": "ofis-mebeli",
+    "name": "Ofis kreslosi Ergo",
+    "description": "To'r suyanchiqli, bosh tayanchli ergonomik kreslo. Qo'llari mustahkam, g'ildirakli.",
+    "price": 1900000,
+    "oldPrice": 2300000,
+    "width": 70,
+    "depth": 78,
+    "height": 115,
+    "material": "To'r mato + plastik",
+    "color": "Qora",
+    "colors": [
+      {
+        "name": "Qora",
+        "hex": "#1f1f21"
+      },
+      {
+        "name": "Kulrang",
+        "hex": "#8b9096"
+      },
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      }
+    ],
+    "featured": true,
+    "imageUrl": "/products/ofis-kreslosi-ergo.jpg",
+    "glbUrl": "/models/ofis-kreslosi-ergo.glb",
+    "usdzUrl": "/models/ofis-kreslosi-ergo.usdz",
+    "bg": null
+  },
+  {
+    "slug": "kompyuter-stoli-pro",
+    "colorParts": [
+      0,
+      2
+    ],
+    "category": "ofis-mebeli",
+    "name": "Rahbar stoli (L-shaklli)",
+    "description": "Krem eman rangidagi L-shaklli rahbar stoli: ikki tomonda tortmali tumbalar va old qismida tumba.",
+    "price": 1350000,
+    "oldPrice": null,
+    "width": 201,
+    "depth": 101,
+    "height": 76,
+    "material": "LDSP",
+    "color": "Krem eman",
+    "colors": [
+      {
+        "name": "Qora",
+        "hex": "#1f1f21"
+      },
+      {
+        "name": "Kulrang",
+        "hex": "#8b9096"
+      },
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      }
+    ],
+    "featured": false,
+    "imageUrl": "/products/kompyuter-stoli-pro.jpg",
+    "glbUrl": "/models/kompyuter-stoli-pro.glb",
+    "usdzUrl": "/models/kompyuter-stoli-pro.usdz",
+    "bg": null
+  },
+  {
+    "slug": "ofis-shkafi",
+    "colorParts": [
+      0
+    ],
+    "category": "ofis-mebeli",
+    "name": "Ofis shkafi (ikki eshikli)",
+    "description": "Och eman rangli ikki eshikli shkaf, qora dastalar. Hujjatlar va buyumlar uchun.",
+    "price": 2100000,
+    "oldPrice": null,
+    "width": 82,
+    "depth": 46,
+    "height": 150,
+    "material": "LDSP",
+    "color": "Och eman",
+    "colors": [
+      {
+        "name": "Qora",
+        "hex": "#1f1f21"
+      },
+      {
+        "name": "Kulrang",
+        "hex": "#8b9096"
+      },
+      {
+        "name": "Oq",
+        "hex": "#f1efe9"
+      }
+    ],
+    "featured": false,
+    "imageUrl": "/products/ofis-shkafi.jpg",
+    "glbUrl": "/models/ofis-shkafi.glb",
+    "usdzUrl": "/models/ofis-shkafi.usdz",
+    "bg": null
+  }
+]

@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  slug     String    @unique
+  products Product[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Int
+  oldPrice    Int?
+  featured    Boolean  @default(false)
+  material    String?
+  color       String?
+  colors      String?
+  colorParts  String?
+  warrantyMonths    Int?
+  installmentMonths Int?
+  stock       String   @default("in")
+  leadDays    Int?
+  width       Int?
+  depth       Int?
+  height      Int?
+  imageUrl    String?
+  images      String?
+  glbUrl      String?
+  usdzUrl     String?
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  address   String
+  note      String?
+  total     Int
+  status    String   @default("new")
+  source    String   @default("site")
+  chatId    String?
+  items     String
+  createdAt DateTime @default(now())
+}
+
+model Setting {
+  key   String @id
+  value String
+}
+
+model TgSession {
+  chatId    String   @id
+  step      String
+  data      String   @default("{}")
+  updatedAt DateTime @updatedAt
+}
+
+model Banner {
+  id         String   @id @default(cuid())
+  title      String
+  subtitle   String?
+  buttonText String?
+  link       String?
+  imageUrl   String?
+  tone       String   @default("orange")
+  active     Boolean  @default(true)
+  position   Int      @default(0)
+  createdAt  DateTime @default(now())
+}

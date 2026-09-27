@@ -1,0 +1,36 @@
+{
+  "name": "mebel3d",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "tg:poll": "node scripts/telegram.mjs poll",
+    "tg:webhook": "node scripts/telegram.mjs webhook",
+    "tg:info": "node scripts/telegram.mjs info",
+    "lint:tw": "node scripts/tailwind-canonical.mjs",
+    "lint:tw:fix": "node scripts/tailwind-canonical.mjs --fix"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "@prisma/client": "5.22.0",
+    "adm-zip": "^0.6.1",
+    "next": "16.3.6",
+    "obj2gltf": "^3.2.0",
+    "prisma": "5.22.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "^0.186.1",
+    "three-mesh-bvh": "^0.9.15"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.6",
+    "puppeteer-core": "^25.12.0",
+    "tailwindcss": "^4"
+  }
+}
