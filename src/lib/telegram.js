@@ -119,3 +119,13 @@ export async function notifyCustomerStatus(order) {
   const SITE = await getSite();
   await tg("sendMessage", { chat_id: order.chatId, text: CUSTOMER_MSG[order.status](orderNumber(order), SITE.phone) });
 }
+
+export async function notifyOwnersModelReady(product) {
+  if (!botEnabled()) return;
+  const owners = await readOwners();
+  const base = siteUrl();
+  const link = base ? `\n\n<a href="${base}/product/${product.id}">Saytda ko'rish</a> · <a href="${base}/admin/products/${product.id}">Tahrirlash</a>` : "";
+  for (const chat_id of owners) {
+    await tg("sendMessage", { chat_id, text: `✅ <b>3D model tayyor</b>\n\n«${esc(product.name)}» uchun rasmlardan 3D model yasaldi va mahsulotga qo'yildi.${link}`, parse_mode: "HTML", disable_web_page_preview: true });
+  }
+}

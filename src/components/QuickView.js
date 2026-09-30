@@ -51,7 +51,7 @@ function Modal({ product, onClose }) {
         <button type="button" onClick={onClose} aria-label="Yopish" className="absolute right-3 top-3 z-10 h-9 w-9 grid place-items-center rounded-full bg-white/90 shadow hover:bg-neutral-100">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
         </button>
-        <div className="rounded-md overflow-hidden bg-[#f1eee8]">
+        <div className="rounded-md overflow-hidden bg-slate-100">
           <model-viewer suppressHydrationWarning ref={viewer} src={product.glbUrl} alt={product.name} loading="eager" auto-rotate camera-controls shadow-intensity="1.1" style={{ width: "100%", height: "min(75vw, 340px)" }} />
         </div>
         <div className="mt-3 flex items-start justify-between gap-3">

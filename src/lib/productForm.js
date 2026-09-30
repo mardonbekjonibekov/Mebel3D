@@ -68,7 +68,7 @@ export async function parseProductForm(form, existing) {
     colorParts: parseParts(form.get("colorParts")?.toString()),
   };
 
-  for (const [field, [input, kind]] of Object.entries({ glbUrl: ["glb", "glb"], usdzUrl: ["usdz", "usdz"] })) {
+  for (const [field, [input, kind]] of Object.entries({ glbUrl: ["glb", "glb"], usdzUrl: ["usdz", "usdz"], videoUrl: ["video", "video"] })) {
     const file = form.get(input);
     if (file && file.size > 0) data[field] = await saveUpload(file, kind);
   }

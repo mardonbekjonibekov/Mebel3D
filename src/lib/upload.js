@@ -9,6 +9,7 @@ const ALLOWED = {
   image: { dir: "images", exts: ["jpg", "jpeg", "png", "webp"], max: 10 * MB },
   glb: { dir: "models", exts: ["glb"], max: 100 * MB },
   usdz: { dir: "models", exts: ["usdz"], max: 100 * MB },
+  video: { dir: "videos", exts: ["mp4", "webm", "mov"], max: 80 * MB },
 };
 
 const startsWith = (buf, bytes) => bytes.every((b, i) => buf[i] === b);
@@ -20,6 +21,9 @@ const MAGIC = {
   jpeg: (b) => startsWith(b, [0xff, 0xd8]),
   png: (b) => startsWith(b, [0x89, 0x50, 0x4e, 0x47]),
   webp: (b) => startsWith(b, [0x52, 0x49, 0x46, 0x46]),
+  mp4: (b) => startsWith(b.subarray(4), [0x66, 0x74, 0x79, 0x70]), // "ftyp" box
+  mov: (b) => startsWith(b.subarray(4), [0x66, 0x74, 0x79, 0x70]),
+  webm: (b) => startsWith(b, [0x1a, 0x45, 0xdf, 0xa3]),
 };
 
 export async function saveUpload(file, kind) {

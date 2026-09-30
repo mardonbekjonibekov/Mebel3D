@@ -36,6 +36,7 @@ model Product {
   images      String?
   glbUrl      String?
   usdzUrl     String?
+  videoUrl    String?
   categoryId  String
   category    Category @relation(fields: [categoryId], references: [id])
   createdAt   DateTime @default(now())

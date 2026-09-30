@@ -15,7 +15,7 @@ export default function ProductCard({ product }) {
   return (
     <article className="card-lift group relative flex h-full flex-col overflow-hidden rounded-lg border border-line bg-white">
       <Link href={`/product/${product.id}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-[#f1eee8]">
+        <div className="relative aspect-square overflow-hidden bg-slate-100">
           {product.imageUrl ? (
             <img
               src={product.imageUrl}
@@ -54,7 +54,7 @@ export default function ProductCard({ product }) {
 
       <div className="flex flex-1 flex-col justify-between gap-3 p-3.5">
         <div>
-          {product.category && <p className="text-[11px] uppercase tracking-[0.1em] text-neutral-400">{product.category.name}</p>}
+          {product.category && <p className="text-[11px] uppercase tracking-widest text-neutral-400">{product.category.name}</p>}
           <Link href={`/product/${product.id}`}>
             <h3 className="mt-1 line-clamp-2 text-[13px] font-medium leading-snug text-ink md:text-[15px]">{product.name}</h3>
           </Link>

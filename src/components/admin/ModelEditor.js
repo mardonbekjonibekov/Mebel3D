@@ -104,7 +104,7 @@ export default function ModelEditor({ src, onSave, onClose }) {
         renderer.domElement.style.cssText = "display:block;width:100%;height:100%;touch-action:none";
         el.appendChild(renderer.domElement);
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf3efe9);
+        scene.background = new THREE.Color(0xf4f4f5);
         const pmrem = new THREE.PMREMGenerator(renderer);
         scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
         scene.add(root);

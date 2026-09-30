@@ -201,7 +201,7 @@ export default function ProductDetail({ product, contact }) {
       <div className="mx-auto max-w-6xl md:px-4 md:py-8 grid grid-cols-[minmax(0,1fr)] gap-0 md:gap-10 md:grid-cols-2">
         {/* GALLERY */}
         <div className="md:sticky md:top-24 md:self-start">
-          <div className="relative overflow-hidden md:rounded-lg bg-[#f1eee8] md:border border-line">
+          <div className="relative overflow-hidden md:rounded-lg bg-slate-100 md:border border-line">
             {tab === "3d" && has3d ? (
               <model-viewer suppressHydrationWarning
                 ref={viewerRef}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ModelEditor from "@/components/admin/ModelEditor";
+import PhotoTo3D from "@/components/admin/PhotoTo3D";
 
 const toSrgbHex = (f) =>
   "#" +
@@ -122,6 +123,22 @@ export default function ModelField({ currentUrl, entered, onDimensions, parts, o
     setSrc(blob.current);
   }
 
+  function onGenerated(file) {
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    fileInput.current.files = dt.files;
+    if (blob.current) URL.revokeObjectURL(blob.current);
+    blob.current = URL.createObjectURL(file);
+    onParts(null);
+    setDims(null);
+    setFailed(false);
+    setConvertError("");
+    setMats([]);
+    setHighlight(false);
+    setFileName("rasmlardan yasalgan model");
+    setSrc(blob.current);
+  }
+
   function onEdited(file, editedParts) {
     const dt = new DataTransfer();
     dt.items.add(file);
@@ -158,6 +175,8 @@ export default function ModelField({ currentUrl, entered, onDimensions, parts, o
         />
         <p className="mt-2 text-xs text-slate-400">.glb fayl. Kiri Engine kabi ilovalarning OBJ (.zip) fayli ham bo&apos;ladi, u avtomatik .glb ga aylantiriladi.</p>
       </div>
+
+      <PhotoTo3D defaultHeight={parseInt(entered?.height, 10) || null} onModel={onGenerated} />
 
       {converting && <p className="animate-pulse text-sm font-medium text-brand">OBJ ni GLB ga aylantiryapman, biroz kuting...</p>}
       {convertError && <p className="rounded-lg bg-red-50 text-red-600 text-sm px-3 py-2">{convertError}</p>}

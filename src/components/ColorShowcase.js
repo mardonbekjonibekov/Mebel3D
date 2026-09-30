@@ -36,7 +36,7 @@ export default function ColorShowcase({ items }) {
   return (
     <div className="relative overflow-hidden rounded-lg border border-line bg-white">
       <div className="relative grid gap-8 p-4 md:grid-cols-[1.2fr_1fr] md:gap-12 md:p-10 md:items-center">
-        <div className="overflow-hidden rounded-md bg-[#f1eee8]">
+        <div className="overflow-hidden rounded-md bg-slate-100">
           <model-viewer suppressHydrationWarning
             key={item.id}
             ref={viewer}

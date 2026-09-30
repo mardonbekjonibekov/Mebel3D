@@ -55,6 +55,7 @@ export default function MobileNav({ categories, site }) {
           </Link>
           <Link href="/catalog?sale=1" onClick={close} className={`${link} text-accent!`}>Chegirmalar</Link>
           <Link href="/catalog?ar=1" onClick={close} className={`${link} text-brand!`}>3D / AR mebellar</Link>
+          <Link href="/stylist" onClick={close} className={link}>AI interyer stilist</Link>
 
           <p className="px-4 pt-5 pb-2 text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Kategoriyalar</p>
           {categories.map((c, i) => (

@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Toaster from "@/components/Toaster";
 import ScrollProgress from "@/components/ScrollProgress";
+import MobileTabBar from "@/components/MobileTabBar";
+import AiAssistant from "@/components/AiAssistant";
 
 export default function ShopLayout({ children }) {
   return (
@@ -10,6 +12,8 @@ export default function ShopLayout({ children }) {
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
+      <MobileTabBar />
+      <AiAssistant />
       <Toaster />
     </div>
   );

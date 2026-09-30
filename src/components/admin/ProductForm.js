@@ -201,10 +201,23 @@ export default function ProductForm({ categories: initialCategories, product }) 
             <span className="text-sm font-semibold text-slate-700">3D model (.glb)</span>
             <Link href="/admin/guide" target="_blank" className="text-xs font-semibold text-brand hover:underline">Qanday skanerlanadi?</Link>
           </div>
+          {edit ? (
+            <Link href={`/admin/products/${product.id}/scan`} className="mb-3 flex items-center gap-3 rounded-2xl bg-brand px-4 py-3.5 text-white transition-opacity hover:opacity-90">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" className="shrink-0" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4V8z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" /><circle cx="12" cy="13" r="3.5" stroke="currentColor" strokeWidth="1.7" /></svg>
+              <span>
+                <span className="block text-sm font-bold">Telefon bilan 3D skanerlash</span>
+                <span className="block text-xs text-white/80">Mebel atrofida aylaning — model o&apos;zi yasaladi va shu yerga qo&apos;yiladi</span>
+              </span>
+            </Link>
+          ) : (
+            <p className="mb-3 rounded-xl bg-slate-50 px-3 py-2 text-xs text-slate-500">Telefon bilan 3D skanerlash uchun avval mahsulotni saqlang.</p>
+          )}
           <input type="hidden" name="colorParts" value={parts ? JSON.stringify(parts) : ""} />
           <ModelField currentUrl={product?.glbUrl} entered={size} onDimensions={setSize} parts={parts} onParts={setParts} />
         </div>
         <FileField label="iPhone uchun .usdz (ixtiyoriy)" name="usdz" accept=".usdz" current={product?.usdzUrl} hint="Bo'sh qoldirsangiz iPhone uchun .glb dan avtomatik yasaladi. Scaniverse iPhone'da .usdz ham beradi, uni shu yerga yuklasangiz eng aniq natija bo'ladi." />
+
+        <FileField label="Ustaxona videosi (ixtiyoriy)" name="video" accept=".mp4,.webm,.mov" current={product?.videoUrl} hint="Mahsulotni tayyorlash yoki o'rnatish jarayonining qisqa videosi. Bosh sahifadagi 'Ishlarimiz' bo'limida ko'rinadi. .mp4 tavsiya etiladi, 80 MB gacha." />
       </section>
 
       <div className="flex gap-3">

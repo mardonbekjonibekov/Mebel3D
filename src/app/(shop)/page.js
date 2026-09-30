@@ -4,6 +4,7 @@ import { getSite, getPages } from "@/lib/settings";
 import CategoryIcon from "@/components/CategoryIcon";
 import Reveal from "@/components/Reveal";
 import BannerSlider from "@/components/BannerSlider";
+import WorkshopVideos from "@/components/WorkshopVideos";
 import HomeTabs from "@/components/HomeTabs";
 import ColorShowcase from "@/components/ColorShowcase";
 import HeroModel from "@/components/HeroModel";
@@ -20,6 +21,15 @@ const STEPS = [
   { title: "Xonada sinab ko'ring", text: "Mebel haqiqiy o'lchamda xonangizda paydo bo'ladi. Joylashtiring, aylantiring, qaror qiling." },
 ];
 
+const CATEGORY_BLURB = {
+  divanlar: "Mehmonxona uchun yumshoq divan va kreslolar.",
+  krevatlar: "Yotoqxona uchun qulay va mustahkam krevatlar.",
+  "ofis-mebeli": "Ish stoli, kreslo va hujjat shkaflari.",
+  shkaflar: "Kiyim va buyumlar uchun keng sig'imli shkaflar.",
+  stollar: "Oshxona va mehmonxona uchun turli o'lchamdagi stollar.",
+  stullar: "Har qanday stolga mos zamonaviy stullar.",
+};
+
 const BENEFIT_ICONS = [
   "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zm-3 9l2 2 4-4",
   "M3 7h11v9H3V7zm11 3h4l3 3v3h-7V10zM7 19a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z",
@@ -29,7 +39,7 @@ const BENEFIT_ICONS = [
 
 export default async function Home() {
   const inc = { category: true };
-  const [site, pages, categories, banners, popular, latest, sale, showcaseRaw, counts] = await Promise.all([
+  const [site, pages, categories, banners, popular, latest, sale, showcaseRaw, counts, videosRaw] = await Promise.all([
     getSite(),
     getPages(),
     prisma.category.findMany({ orderBy: { name: "asc" }, include: { products: { take: 1, orderBy: { createdAt: "asc" } } } }),
@@ -39,6 +49,7 @@ export default async function Home() {
     prisma.product.findMany({ where: { oldPrice: { not: null } }, orderBy: { createdAt: "desc" }, take: 8, include: inc }),
     prisma.product.findMany({ where: { glbUrl: { not: null } }, orderBy: [{ featured: "desc" }, { createdAt: "desc" }], take: 6 }),
     Promise.all([prisma.product.count(), prisma.product.count({ where: { glbUrl: { not: null } } }), prisma.category.count()]),
+    prisma.product.findMany({ where: { videoUrl: { not: null } }, orderBy: { createdAt: "desc" }, take: 6, select: { id: true, name: true, videoUrl: true, imageUrl: true, price: true } }),
   ]);
   const hero = showcaseRaw[0];
   const [productCount, modelCount, categoryCount] = counts;
@@ -60,62 +71,66 @@ export default async function Home() {
 
       {/* 3D HERO */}
       {hero && (
-        <section className={`${wrap} pt-4 md:pt-6`}>
-          <div className="overflow-hidden rounded-lg bg-[#ece7de]">
-            <div className="grid gap-10 p-6 md:grid-cols-[1.05fr_1fr] md:items-center md:gap-14 md:p-14">
-              <div>
-                <p className="eyebrow animate-fade-up">3D / AR mebel katalogi</p>
-                <h1 className="animate-fade-up mt-4 text-[2.5rem] leading-[1.04] text-ink md:text-[4rem]" style={{ animationDelay: "80ms" }}>
-                  Mebelni uyingizda <em className="font-normal text-brand">oldindan</em> ko&apos;ring
-                </h1>
-                <p className="animate-fade-up mt-5 max-w-md text-[15px] leading-relaxed text-neutral-600 md:text-base" style={{ animationDelay: "160ms" }}>
-                  Har bir mahsulotni 3D aylantirib ko&apos;ring, telefon kamerasi orqali xonangizga qo&apos;ying va o&apos;lchamini aniq baholang.
-                </p>
-                <div className="animate-fade-up mt-8 grid grid-cols-2 gap-3 sm:flex" style={{ animationDelay: "240ms" }}>
-                  <Link href="/catalog" className="btn-primary px-4 py-3.5 text-sm sm:px-7">Katalogni ochish</Link>
-                  <Link href="/catalog?ar=1" className="btn-outline px-4 py-3.5 text-sm sm:px-7">Faqat 3D / AR</Link>
+          <section className={`${wrap} pt-4 md:pt-6`}>
+            <div className="overflow-hidden rounded-lg bg-slate-100">
+              <div className="grid gap-10 p-6 md:grid-cols-[1.05fr_1fr] md:items-center md:gap-14 md:p-14">
+                <div>
+                  <p className="eyebrow animate-fade-up">3D / AR mebel katalogi</p>
+                  <h1 className="animate-fade-up mt-4 text-[2.5rem] leading-[1.04] text-ink md:text-[4rem]" style={{ animationDelay: "80ms" }}>
+                    Mebelni uyingizda <em className="font-normal text-brand">oldindan</em> ko&apos;ring
+                  </h1>
+                  <p className="animate-fade-up mt-5 max-w-md text-[15px] leading-relaxed text-neutral-600 md:text-base" style={{ animationDelay: "160ms" }}>
+                    Har bir mahsulotni 3D aylantirib ko&apos;ring, telefon kamerasi orqali xonangizga qo&apos;ying va o&apos;lchamini aniq baholang.
+                  </p>
+                  <div className="animate-fade-up mt-8 grid grid-cols-2 gap-3 sm:flex" style={{ animationDelay: "240ms" }}>
+                    <Link href="/catalog" className="btn-primary px-4 py-3.5 text-sm sm:px-7">Katalogni ochish</Link>
+                    <Link href="/catalog?ar=1" className="btn-outline px-4 py-3.5 text-sm sm:px-7">Faqat 3D / AR</Link>
+                  </div>
+                  <dl className="animate-fade-up mt-10 grid max-w-md grid-cols-3 border-t border-ink/15 pt-6" style={{ animationDelay: "320ms" }}>
+                    {[
+                      [productCount, "mahsulot"],
+                      [modelCount, "3D model"],
+                      [categoryCount, "kategoriya"],
+                    ].map(([n, l], k) => (
+                      <div key={l} className={k > 0 ? "border-l border-ink/15 pl-5" : ""}>
+                        <dd className="font-display text-3xl leading-none text-ink md:text-4xl"><Counter to={n} /></dd>
+                        <dt className="mt-2 text-xs text-neutral-500">{l}</dt>
+                      </div>
+                    ))}
+                  </dl>
                 </div>
-                <dl className="animate-fade-up mt-10 grid max-w-md grid-cols-3 border-t border-ink/15 pt-6" style={{ animationDelay: "320ms" }}>
-                  {[
-                    [productCount, "mahsulot"],
-                    [modelCount, "3D model"],
-                    [categoryCount, "kategoriya"],
-                  ].map(([n, l], k) => (
-                    <div key={l} className={k > 0 ? "border-l border-ink/15 pl-5" : ""}>
-                      <dd className="font-display text-3xl leading-none text-ink md:text-4xl"><Counter to={n} /></dd>
-                      <dt className="mt-2 text-xs text-neutral-500">{l}</dt>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-              <div className="animate-fade-up" style={{ animationDelay: "200ms" }}>
-                <HeroModel product={hero} />
+                <div className="animate-fade-up" style={{ animationDelay: "200ms" }}>
+                  <HeroModel product={hero} />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
       )}
 
       {/* CATEGORIES */}
       <section className={section}>
-        <Reveal>
+        <Reveal className="text-center">
           <p className="eyebrow">Kategoriyalar</p>
-          <h2 className="mt-2 text-3xl leading-none md:text-5xl">Xona uchun tanlang</h2>
+          <h2 className="mt-2 text-3xl leading-none md:text-5xl">Xona uchun mebel toping</h2>
+          <p className="mx-auto mt-3 max-w-md text-sm text-neutral-500">Uy va ofis uchun keng assortiment ichidan tanlang.</p>
+          <Link href="/catalog" className="btn-primary mt-6 inline-flex px-6 py-3 text-sm">Barcha kategoriyalar</Link>
         </Reveal>
-        <div className="no-scrollbar -mx-4 mt-8 flex snap-x scroll-pl-4 gap-3 overflow-x-auto px-4 md:mx-0 md:grid md:grid-cols-7 md:gap-4 md:overflow-visible md:px-0">
-          {categories.map((c, i) => (
-            <Reveal key={c.id} delay={i * 50} className="w-38 shrink-0 snap-start md:w-auto">
-              <Link href={`/catalog/${c.slug}`} className="group block">
-                <span className="relative grid aspect-4/5 place-items-center overflow-hidden rounded-lg border border-line bg-[#efebe4] transition-colors group-hover:border-ink/40">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.filter((c) => c.slug !== "sumka").map((c, i) => (
+            <Reveal key={c.id} delay={i * 60}>
+              <Link href={`/catalog/${c.slug}`} className="group block h-full rounded-2xl border border-line bg-slate-50 p-5 transition-colors hover:border-ink/25 hover:bg-white">
+                <div className="relative mb-4 grid aspect-4/3 place-items-center overflow-hidden rounded-xl bg-white">
                   {c.products[0]?.imageUrl ? (
-                    <img src={c.products[0].imageUrl} alt="" loading="lazy" className="h-[78%] w-[78%] object-contain mix-blend-multiply transition-transform duration-700 ease-out group-hover:scale-105" />
+                    <img src={c.products[0].imageUrl} alt="" loading="lazy" className="absolute inset-0 h-full w-full scale-105 object-contain mix-blend-multiply transition-transform duration-700 ease-out group-hover:scale-110" />
                   ) : (
                     <CategoryIcon slug={c.slug} size={36} className="text-neutral-400" />
                   )}
-                </span>
-                <span className="mt-3 flex items-center justify-between text-[13px] font-medium text-ink md:text-sm">
-                  <span className="cap">{c.name}</span>
-                  <svg className="text-neutral-400 transition-all group-hover:translate-x-0.5 group-hover:text-ink" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </div>
+                <h3 className="cap text-base font-bold text-ink">{c.name}</h3>
+                <p className="mt-1.5 line-clamp-2 text-[13px] leading-relaxed text-neutral-500">{CATEGORY_BLURB[c.slug] || "Sifatli va zamonaviy mebellar to'plami."}</p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-ink">
+                  Ko&apos;rish
+                  <svg className="transition-transform group-hover:translate-x-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 </span>
               </Link>
             </Reveal>
@@ -156,6 +171,15 @@ export default async function Home() {
         <section className={section}>
           <Reveal>
             <ColorShowcase items={showcase} />
+          </Reveal>
+        </section>
+      )}
+
+      {/* WORKSHOP VIDEOS */}
+      {videosRaw.length > 0 && (
+        <section className={section}>
+          <Reveal>
+            <WorkshopVideos items={videosRaw} />
           </Reveal>
         </section>
       )}
@@ -238,7 +262,7 @@ export default async function Home() {
               <h2 className="mt-3 text-3xl leading-[1.08] md:text-5xl">Savolingiz bormi?</h2>
               <p className="mt-4 text-sm leading-relaxed text-neutral-400 md:text-base">Mebel tanlashda operatorimiz yordam beradi.</p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <a href={site.phoneHref} className="rounded-md bg-white px-7 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-[#efe9df]">{site.phone}</a>
+                <a href={site.phoneHref} className="rounded-md bg-white px-7 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-slate-100">{site.phone}</a>
                 <a href={site.telegram} target="_blank" rel="noopener noreferrer" className="btn-ghost px-7 py-3.5 text-sm">Telegramda yozish</a>
               </div>
             </div>

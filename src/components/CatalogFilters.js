@@ -66,11 +66,11 @@ export default function CatalogFilters({ basePath, categories, activeSlug, value
 
           <Group title="Kategoriya">
             <div className="space-y-0.5">
-              <Link href="/catalog" className={`flex items-center justify-between rounded-lg px-2.5 py-2 text-sm ${!activeSlug ? "bg-[#efebe4] font-medium text-ink" : "text-neutral-700 hover:bg-neutral-50"}`}>
+              <Link href="/catalog" className={`flex items-center justify-between rounded-lg px-2.5 py-2 text-sm ${!activeSlug ? "bg-[#ede9f0] font-medium text-ink" : "text-neutral-700 hover:bg-neutral-50"}`}>
                 Hammasi
               </Link>
               {categories.map((c) => (
-                <Link key={c.id} href={`/catalog/${c.slug}`} className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm ${activeSlug === c.slug ? "bg-[#efebe4] font-medium text-ink" : "text-neutral-700 hover:bg-neutral-50"}`}>
+                <Link key={c.id} href={`/catalog/${c.slug}`} className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm ${activeSlug === c.slug ? "bg-[#ede9f0] font-medium text-ink" : "text-neutral-700 hover:bg-neutral-50"}`}>
                   <CategoryIcon slug={c.slug} size={16} />
                   <span className="min-w-0 flex-1 truncate">{c.name}</span>
                   <span className="text-xs text-neutral-400">{c.count}</span>

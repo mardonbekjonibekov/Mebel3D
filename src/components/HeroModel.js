@@ -6,7 +6,7 @@ import { formatPrice } from "@/lib/format";
 export default function HeroModel({ product }) {
   return (
     <div className="rounded-lg border border-line bg-white p-3 md:p-4">
-      <div className="relative overflow-hidden rounded-md bg-[#f1eee8]">
+      <div className="relative overflow-hidden rounded-md bg-slate-100">
         <model-viewer suppressHydrationWarning
           src={product.glbUrl}
           ios-src={product.usdzUrl || undefined}

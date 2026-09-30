@@ -18,7 +18,7 @@ export default function InfoPage({ title, current, children }) {
       <div className="mt-6 grid gap-6 lg:grid-cols-[260px_1fr] lg:items-start">
         <aside className="rounded-2xl border border-neutral-200 bg-white p-2 lg:sticky lg:top-24">
           {LINKS.map(([href, label]) => (
-            <Link key={href} href={href} className={`block rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${current === href ? "bg-[#efebe4] font-medium text-ink" : "text-neutral-700 hover:bg-neutral-50"}`}>
+            <Link key={href} href={href} className={`block rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${current === href ? "bg-[#ede9f0] font-medium text-ink" : "text-neutral-700 hover:bg-neutral-50"}`}>
               {label}
             </Link>
           ))}

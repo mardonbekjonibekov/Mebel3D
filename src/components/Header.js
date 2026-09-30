@@ -82,6 +82,7 @@ export default async function Header() {
           <span className="ml-auto h-4 w-px bg-line" />
           <Link href="/catalog?sale=1" className="whitespace-nowrap py-3 font-medium text-accent hover:opacity-80">Chegirmalar</Link>
           <Link href="/catalog?ar=1" className="whitespace-nowrap py-3 font-medium text-ink hover:text-brand">3D / AR</Link>
+          <Link href="/stylist" className="whitespace-nowrap py-3 font-medium text-ink hover:text-brand">AI Stilist</Link>
         </div>
       </nav>
     </>

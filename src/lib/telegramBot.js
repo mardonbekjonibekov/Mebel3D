@@ -9,6 +9,15 @@ import {
 
 const send = (chat_id, text, extra = {}) => tg("sendMessage", { chat_id, text, parse_mode: "HTML", ...extra });
 
+// Persistent bottom keyboard (stays visible under the message box regardless of any
+// per-message inline keyboards) so the chat is always one tap away from the catalog,
+// without typing /start again.
+const MAIN_KEYBOARD = {
+  keyboard: [[{ text: "🛋 Katalog" }, { text: "🏠 Bosh menyu" }]],
+  resize_keyboard: true,
+  is_persistent: true,
+};
+
 async function getSession(chatId) {
   const s = await prisma.tgSession.findUnique({ where: { chatId } });
   if (!s) return null;
@@ -33,14 +42,50 @@ const parseColors = (p) => {
 async function sendWelcome(chatId) {
   const SITE = await getSite();
   const url = siteUrl();
-  await send(
-    chatId,
-    `Assalomu alaykum! <b>${esc(SITE.name)}</b> do'koniga xush kelibsiz.\n\nMebelni saytdan tanlang, mahsulot sahifasidagi "Telegramda buyurtma" tugmasi sizni shu yerga olib keladi.\n\nTelefon: ${esc(SITE.phone)}`,
-    url ? { reply_markup: { inline_keyboard: [[{ text: "Katalogni ochish", url: `${url}/catalog` }]] } } : {}
-  );
+  const lines = [
+    `Assalomu alaykum! <b>${esc(SITE.name)}</b> do'koniga xush kelibsiz.`,
+    "",
+    `Pastdagi <b>🛋 Katalog</b> tugmasi orqali mahsulotlarni ko'ring.`,
+  ];
+  if (url) lines.push("", `Sayt: ${url}/catalog`);
+  lines.push("", `Telefon: ${esc(SITE.phone)}`);
+  await send(chatId, lines.join("\n"), { reply_markup: MAIN_KEYBOARD });
 }
 
-async function sendProduct(chatId, productId, colorIdx) {
+const CATALOG_PAGE_SIZE = 6;
+
+async function sendCategories(chatId) {
+  const categories = await prisma.category.findMany({ orderBy: { name: "asc" }, include: { _count: { select: { products: true } } } });
+  if (categories.length === 0) return send(chatId, "Hozircha kategoriyalar yo'q.");
+  await send(chatId, "Kategoriyani tanlang:", {
+    reply_markup: { inline_keyboard: categories.map((c) => [{ text: `${c.name} (${c._count.products})`, callback_data: `cs:${c.slug}:0` }]) },
+  });
+}
+
+async function sendCategoryProducts(chatId, slug, page) {
+  const category = await prisma.category.findUnique({ where: { slug } });
+  if (!category) return send(chatId, "Bu kategoriya topilmadi.");
+  const total = await prisma.product.count({ where: { categoryId: category.id } });
+  if (total === 0) return send(chatId, "Bu kategoriyada hali mahsulot yo'q.");
+  const products = await prisma.product.findMany({
+    where: { categoryId: category.id },
+    orderBy: { createdAt: "desc" },
+    skip: page * CATALOG_PAGE_SIZE,
+    take: CATALOG_PAGE_SIZE,
+  });
+  const rows = products.map((p) => {
+    const name = p.name.length > 38 ? `${p.name.slice(0, 37)}…` : p.name;
+    return [{ text: `${name} — ${formatPrice(p.price)}`, callback_data: `pv:${p.id}:${slug}:${page}` }];
+  });
+  const nav = [];
+  if (page > 0) nav.push({ text: "⬅️ Oldingi", callback_data: `cs:${slug}:${page - 1}` });
+  if ((page + 1) * CATALOG_PAGE_SIZE < total) nav.push({ text: "Keyingi ➡️", callback_data: `cs:${slug}:${page + 1}` });
+  if (nav.length) rows.push(nav);
+  rows.push([{ text: "🔙 Kategoriyalar", callback_data: "cat" }]);
+  await send(chatId, `<b>${esc(category.name)}</b>`, { reply_markup: { inline_keyboard: rows } });
+}
+
+async function sendProduct(chatId, productId, colorIdx, back) {
   const p = await prisma.product.findUnique({ where: { id: productId }, include: { category: true } });
   if (!p) return send(chatId, "Bu mahsulot topilmadi. Katalogdan qayta tanlang.");
   const colors = parseColors(p);
@@ -50,8 +95,14 @@ async function sendProduct(chatId, productId, colorIdx) {
     .filter(Boolean)
     .join("\n");
   const url = siteUrl();
-  const buttons = [[{ text: "Buyurtma berish", callback_data: `o:${p.id}:${color ? colorIdx : "-"}` }]];
+  // colorIdx already carries the right meaning from every caller: "-" (not chosen yet),
+  // "x" (explicitly "asl rang") or a numeric index — passing it straight through avoids
+  // losing an explicit "asl rang" pick, which `color ? colorIdx : "-"` used to do (Number("x")
+  // is NaN, so `color` was falsy even though a color HAD been chosen, causing the button
+  // below to reopen "Rangni tanlang" in a loop instead of proceeding to checkout).
+  const buttons = [[{ text: "Buyurtma berish", callback_data: `o:${p.id}:${colorIdx}` }]];
   if (url) buttons.push([{ text: "Saytda ko'rish (3D / AR)", url: `${url}/product/${p.id}` }]);
+  if (back) buttons.push([{ text: "🔙 Orqaga", callback_data: back }]);
   const markup = { inline_keyboard: buttons };
 
   if (url && p.imageUrl) {
@@ -92,7 +143,16 @@ async function handleText(msg, chatId) {
 
   if (text === "/cancel") {
     await clearSession(chatId);
-    return send(chatId, "Bekor qilindi.", { reply_markup: { remove_keyboard: true } });
+    return send(chatId, "Bekor qilindi.", { reply_markup: MAIN_KEYBOARD });
+  }
+
+  if (text === "🛋 Katalog") {
+    await clearSession(chatId);
+    return sendCategories(chatId);
+  }
+  if (text === "🏠 Bosh menyu") {
+    await clearSession(chatId);
+    return sendWelcome(chatId);
   }
 
   if (session?.step === "phone") {
@@ -113,11 +173,11 @@ async function handleText(msg, chatId) {
       });
       await clearSession(chatId);
       const SITE = await getSite();
-      await send(chatId, `Buyurtmangiz qabul qilindi. Raqami: <b>#${orderNumber(order)}</b>\nJami: ${formatPrice(order.total)}\n\nOperator tez orada siz bilan bog'lanadi.\nTelefon: ${esc(SITE.phone)}`);
+      await send(chatId, `Buyurtmangiz qabul qilindi. Raqami: <b>#${orderNumber(order)}</b>\nJami: ${formatPrice(order.total)}\n\nOperator tez orada siz bilan bog'lanadi.\nTelefon: ${esc(SITE.phone)}`, { reply_markup: MAIN_KEYBOARD });
       await notifyOwnersNewOrder(order);
     } catch (err) {
       await clearSession(chatId);
-      await send(chatId, err instanceof OrderError ? err.message : "Xatolik yuz berdi. Keyinroq urinib ko'ring.");
+      await send(chatId, err instanceof OrderError ? err.message : "Xatolik yuz berdi. Keyinroq urinib ko'ring.", { reply_markup: MAIN_KEYBOARD });
     }
     return;
   }
@@ -128,6 +188,8 @@ async function handleText(msg, chatId) {
     if (m) return sendProduct(chatId, m[1], m[2] ?? "-");
     return sendWelcome(chatId);
   }
+
+  if (text.startsWith("/catalog")) return sendCategories(chatId);
 
   if (text.startsWith("/link")) {
     const code = text.split(/\s+/)[1] || "";
@@ -158,19 +220,38 @@ async function handleText(msg, chatId) {
 
 async function handleCallback(cb) {
   const chatId = String(cb.message?.chat?.id || cb.from.id);
-  const [kind, a, b] = (cb.data || "").split(":");
+  const [kind, a, b, c] = (cb.data || "").split(":");
   const answer = (text) => tg("answerCallbackQuery", { callback_query_id: cb.id, ...(text ? { text } : {}) });
 
+  if (kind === "cat") {
+    await answer();
+    return sendCategories(chatId);
+  }
+  if (kind === "cs") {
+    await answer();
+    return sendCategoryProducts(chatId, a, Number(b) || 0);
+  }
+  if (kind === "pv") {
+    await answer();
+    return sendProduct(chatId, a, "-", `cs:${b}:${c || 0}`);
+  }
   if (kind === "o") {
     await answer();
+    // Same hygiene as "oc": once acted on, disable this card's own button so a delayed
+    // second tap (or a tap on an old copy of this same card) can't resubmit silently.
+    await tg("editMessageReplyMarkup", { chat_id: chatId, message_id: cb.message.message_id, reply_markup: { inline_keyboard: [] } });
     return startOrder(chatId, a, b);
   }
   if (kind === "oc") {
     await answer();
-    const p = await prisma.product.findUnique({ where: { id: a } });
-    if (!p) return send(chatId, "Bu mahsulot topilmadi.");
-    const color = b === "x" ? null : parseColors(p)[Number(b)]?.name || null;
-    return askPhone(chatId, { productId: p.id, color });
+    // Strip the "Rangni tanlang" buttons from the OLD message first: otherwise several
+    // product cards pile up in the chat and an old, already-acted-on color button stays
+    // tappable, silently placing the order with a stale color instead of the one just picked.
+    await tg("editMessageReplyMarkup", { chat_id: chatId, message_id: cb.message.message_id, reply_markup: { inline_keyboard: [] } });
+    // Show the product card (photo, price, the color just picked) before "Buyurtma
+    // berish" — same card sendProduct always shows, now carrying the chosen color idx
+    // so its own order button goes straight to checkout instead of asking again.
+    return sendProduct(chatId, a, b);
   }
 
   if (kind === "ov" || kind === "os") {
