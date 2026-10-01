@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Mebel3D
 
-## Getting Started
+Mebel do'konlari uchun 3D / AR savdo tizimi: onlayn katalog, 3D ko'rish va AR, AI qidiruv va AI interyer stilist, Telegram bot, admin panel hamda rasmlardan / telefon skaneri orqali 3D model yaratish.
 
-First, run the development server:
+Texnologiyalar: Next.js 16 (App Router), React 19, Prisma + SQLite, Tailwind CSS 4, `<model-viewer>`, TensorFlow.js (brauzerda), Apple Object Capture (macOS).
+
+## Lokal ishga tushirish
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env          # qiymatlarni to'ldiring
+npx prisma migrate deploy     # bazani yaratadi
+node prisma/seed.js           # ixtiyoriy: demo katalog (haqiqiy do'kon bazasida ishlatmang)
+npm run dev                   # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Admin panel: `/admin` (login va parol `.env` dagi `ADMIN_USER` / `ADMIN_PASSWORD`).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Serverga joylash (Linux VPS)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Talablar: Node.js 20.9+, kamida 2 GB RAM (build uchun), domen va HTTPS (kamera, AR va Telegram webhook uchun shart).
 
-## Learn More
+```bash
+git clone git@github.com:mardonbekjonibekov/Mebel3D.git && cd Mebel3D
+npm ci
+cp .env.example .env          # ADMIN_PASSWORD, SITE_URL, Telegram qiymatlarini kiriting
+npx prisma migrate deploy
+npm run build
+npm start -- -p 3000          # pm2 yoki systemd orqali doimiy ishga tushiring
+```
 
-To learn more about Next.js, take a look at the following resources:
+Nginx'ni `localhost:3000` ga reverse proxy qiling va Certbot bilan SSL oling. Yuklanadigan fayllar (3D model, video) uchun Nginx'da `client_max_body_size 200m;` qo'ying.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Telegram botni ulash (bir marta):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+node scripts/telegram.mjs webhook https://sizning-domen.uz
+node scripts/telegram.mjs commands
+```
 
-## Deploy on Vercel
+Lokal sinovda webhook o'rniga: `npm run tg:poll -- http://localhost:3000`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Saqlanadigan ma'lumotlar
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Quyidagilar git'da yo'q — ularni zaxiralang va yangilashda o'chirib yubormang:
+
+- `prisma/dev.db` — mahsulotlar, buyurtmalar, sozlamalar
+- `uploads/` — yuklangan rasmlar, 3D modellar, videolar
+- `.env` — parollar va tokenlar
+
+### Rasmlardan 3D yaratish
+
+Apple Object Capture faqat Apple Silicon (M1 va yangi) Mac'da ishlaydi. Linux serverda admin panelda bu funksiya "faqat Mac serverda ishlaydi" degan xabar beradi, qolgan barcha qismlar odatdagidek ishlaydi. Mac'da Swift dasturi (`scripts/photogrammetry/main.swift`) birinchi ishga tushishda o'zi `.tools/photogrammetry` ga kompilyatsiya qilinadi (Xcode Command Line Tools kerak).
+
+## Foydali buyruqlar
+
+| Buyruq | Vazifasi |
+|---|---|
+| `npm run lint` | ESLint tekshiruvi |
+| `npm run lint:tw` / `lint:tw:fix` | Tailwind klasslarini kanonik shaklga keltirish |
+| `npm run tg:info` | Bot ma'lumoti |
+| `npm run tg:commands` | Botdagi "Menu" buyruqlarini ro'yxatdan o'tkazish |

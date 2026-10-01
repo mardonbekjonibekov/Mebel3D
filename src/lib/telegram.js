@@ -40,7 +40,6 @@ async function readOwners() {
   return [...new Set([...list.map(String), ...fromEnv])];
 }
 
-export const getOwners = readOwners;
 export async function isOwner(chatId) {
   return (await readOwners()).includes(String(chatId));
 }
